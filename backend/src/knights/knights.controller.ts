@@ -3,9 +3,12 @@ import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Query } from
 import { ApiTags } from '@nestjs/swagger';
 import { Docs } from 'src/decorators/docs.decorator';
 import { Validate, ValidationPlace } from 'src/pipes/Validation/validation.pipe';
-import { FilterTypes } from './filter/FilterTypes/filter';
-import { GetKnightOutput, GetKnightSchema } from './dto/get-knight.dto';
-import { GetKnightByIdOutput, GetKnightByIdSchema } from './dto/get-knight-by-id.dto';
+import { GetKnightInput, GetKnightOutput, GetKnightSchema } from './dto/get-knight.dto';
+import {
+  GetKnightByIdInput,
+  GetKnightByIdOutput,
+  GetKnightByIdSchema,
+} from './dto/get-knight-by-id.dto';
 import { KnightDto } from './dto/types/knight.dto';
 import { KnightNotFoundException } from './errors';
 import { DeleteKnightOutput, DeleteKnightSchema } from './dto/delete-knight.dto';
@@ -21,6 +24,7 @@ import { UPDATE_KNIGHTS_NICKNAME_DOC } from './docs/update-knights.doc';
 import { DELETE_KNIGHTS_DOC } from './docs/delete-knights.doc';
 import { CreateKnightInput, CreateKnightOutput, CreateKnightSchema } from './dto/create-knight.dto';
 import { CREATE_KNIGHTS_DOC } from './docs/create-knight.doc';
+import { KnightEntity } from './entities/Knight.entity';
 
 @ApiTags('knights')
 @Controller('knights')
@@ -32,9 +36,8 @@ export class KnightsController {
   // Eu não vou implementar uma paginação porque não sei se os endpoints precisam estar
   // Do mesmo jeito do documento, mas eu pensei nisso ;)
   @Validate(GetKnightSchema, ValidationPlace.QUERY)
-  async getKnights(@Query() { filter }: { filter: FilterTypes }): GetKnightOutput {
+  async getKnights(@Query() { filter }: GetKnightInput): GetKnightOutput {
     const results = await this.knightsService.getKnights(filter);
-
     const resultsMappedToDto = results.map((result) => {
       return new KnightDto(result);
     });
@@ -45,9 +48,11 @@ export class KnightsController {
   @Get(':id')
   @Docs(GET_KNIGHTS_BY_ID_DOC)
   @Validate(GetKnightByIdSchema, ValidationPlace.PARAMS)
-  async getKnightById(@Param() { id }: { id: string }): GetKnightByIdOutput {
-    const knight = await this.assertKnightExistance(id);
-    return new KnightDto(knight);
+  async getKnightById(@Param() { id }: GetKnightByIdInput): GetKnightByIdOutput {
+    await this.assertKnightExistance(id);
+    const knight = await this.knightsService.getKnightById(id);
+
+    return new KnightEntity(knight);
   }
 
   @Put(':id')
@@ -75,7 +80,13 @@ export class KnightsController {
   @Post()
   @Docs(CREATE_KNIGHTS_DOC)
   @Validate(CreateKnightSchema, ValidationPlace.BODY)
-  private async createKnight(@Body() body: CreateKnightInput): CreateKnightOutput {}
+  async createKnight(
+    @Body() { attributes, weapons, ...knight }: CreateKnightInput,
+  ): CreateKnightOutput {
+    const createdKnight = await this.knightsService.createKnight(knight, weapons, attributes);
+    console.log(createdKnight);
+    return new KnightDto(createdKnight);
+  }
 
   private async assertKnightExistance(id: string) {
     const doesKnightExist = await this.knightsService.getKnightById(id);
