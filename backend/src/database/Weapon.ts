@@ -4,7 +4,7 @@ import { AttributeType } from './Attributes';
 
 export type WeaponDocument = HydratedDocument<Weapon>;
 
-@Schema()
+@Schema({ _id: false })
 export class Weapon {
   @Prop()
   name: string;
