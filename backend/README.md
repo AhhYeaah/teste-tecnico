@@ -1,16 +1,26 @@
-## Description
+## Esse não é o melhor que eu posso fazer!!!
 
-A small api using Nestjs.
+Tive apenas dois dias para realizar o frontend e o backend deste projeto, então algumas funcionalidades que eu sei implementar ficaram de fora (como cache e paginação, por exemplo).
 
-- Validation with joi
-- Security middlewares with helmet
-- Response compression with compression
-- Api docs with swagger
-- Design Patterns
-- Non relational databases with mongodb
-- Loggers, jwt and hashing services with dependency injection
-- Automated tests with jest
-- Guards, decorators, pipes and more!
+## Considerações Iniciais
+
+Algumas considerações em relação ao meu projeto é que eu tomei como uma chance de demonstrar o que eu sei. Então pode haver funcionalidades (como a factory dentro do getKnights) que estão prolixas, nesse caso eu estava utilizando da oportunidade pra mostrar algum conceito que tenho conhecimento.
+
+Em relação aos testes, tratei de incluir alguns deles para dtos, mas nem todos eles tem por um motivo: testes demais diminuem consideravelmente o tempo de desenvolvimento.
+
+## Descrição
+
+Uma pequena API que utiliza Nestjs.
+
+- Validação com joi
+- Documentos da API com Swagger
+- Design pattern
+- Databases não relacionais com mongodb
+- Serviços de loggers, jwt e hashing com injeção de dependências
+- Testes automatizados com jest
+- Guardas, decoradores, pipes e muito mais!
+- Middlewares de segurança com helmet
+- Compressão de respostas com compression
 
 ## Installation
 
@@ -18,16 +28,16 @@ A small api using Nestjs.
 $ npm install
 ```
 
+## Setting enviroment variables
+
+```
+Change the name of the .env.example file to .env
+```
+
 ## Setting up Docker (use sudo if you're using linux)
 
 ```bash
 docker compose up
-```
-
-## Iniciating database w/ Prisma
-
-```bash
-npx prisma migrate dev
 ```
 
 ## Running the app
