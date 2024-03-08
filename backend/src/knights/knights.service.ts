@@ -18,7 +18,10 @@ export class KnightsService {
   }
 
   getKnightById(id: string): Promise<Knight | undefined> {
-    return this.knightModel.findById(id);
+    return this.knightModel.findOne({
+      _id: id,
+      deletedAt: null,
+    });
   }
 
   async deleteKnight(id: string): Promise<void> {
