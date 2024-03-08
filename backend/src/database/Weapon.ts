@@ -21,3 +21,5 @@ export class Weapon {
 }
 
 const WeaponSchema = SchemaFactory.createForClass(Weapon);
+
+export { WeaponSchema };
