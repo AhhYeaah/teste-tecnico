@@ -1,30 +1,26 @@
 import { KnightsService } from './knights.service';
-import {
-  BadRequestException,
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpCode,
-  Param,
-  Post,
-  Put,
-  Query,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Docs } from 'src/decorators/docs.decorator';
 import { Validate, ValidationPlace } from 'src/pipes/Validation/validation.pipe';
 import { FilterTypes } from './filter/FilterTypes/filter';
-import { GetKnightSchema } from './dto/get-knight.dto';
-import { GetKnightByIdSchema } from './dto/get-knight-by-id.dto';
-import { KnightDto } from './dto/knight.dto';
+import { GetKnightOutput, GetKnightSchema } from './dto/get-knight.dto';
+import { GetKnightByIdOutput, GetKnightByIdSchema } from './dto/get-knight-by-id.dto';
+import { KnightDto } from './dto/types/knight.dto';
 import { KnightNotFoundException } from './errors';
-import { DeleteKnightSchema } from './dto/delete-knight.dto';
+import { DeleteKnightOutput, DeleteKnightSchema } from './dto/delete-knight.dto';
 import {
   UpdateKnightParamsSchema,
   UpdateKnightBodySchema,
   UpdateKnightInput,
+  UpdateKnightOutput,
 } from './dto/update-knight.dto';
+import { GET_KNIGHTS_DOC } from './docs/get-knights.docs';
+import { GET_KNIGHTS_BY_ID_DOC } from './docs/get-knights-by-id.doc';
+import { UPDATE_KNIGHTS_NICKNAME_DOC } from './docs/update-knights.doc';
+import { DELETE_KNIGHTS_DOC } from './docs/delete-knights.doc';
+import { CreateKnightInput, CreateKnightOutput, CreateKnightSchema } from './dto/create-knight.dto';
+import { CREATE_KNIGHTS_DOC } from './docs/create-knight.doc';
 
 @ApiTags('knights')
 @Controller('knights')
@@ -32,31 +28,11 @@ export class KnightsController {
   constructor(private knightsService: KnightsService) {}
 
   @Get()
-  @Docs({
-    operation: {
-      description: 'Exibe uma lista de knights.',
-      parameters: [
-        {
-          name: 'filter',
-          in: 'query',
-          description:
-            'Filtro para a pesquisa, caso o valor enviado seja heroes, exibirá todos os herois deletados.',
-        },
-      ],
-    },
-    responses: [
-      {
-        status: 200,
-        description: 'Pesquisa realizada com sucesso.',
-        type: KnightDto,
-        isArray: true,
-      },
-    ],
-  })
+  @Docs(GET_KNIGHTS_DOC)
   // Eu não vou implementar uma paginação porque não sei se os endpoints precisam estar
   // Do mesmo jeito do documento, mas eu pensei nisso ;)
   @Validate(GetKnightSchema, ValidationPlace.QUERY)
-  async getKnights(@Query('filter') filter?: FilterTypes) {
+  async getKnights(@Query() { filter }: { filter: FilterTypes }): GetKnightOutput {
     const results = await this.knightsService.getKnights(filter);
 
     const resultsMappedToDto = results.map((result) => {
@@ -67,104 +43,39 @@ export class KnightsController {
   }
 
   @Get(':id')
-  @Docs({
-    operation: {
-      description: 'Exibe o knight cujo id foi passado.',
-      parameters: [{ name: 'id', in: 'path' }],
-    },
-    responses: [
-      {
-        status: 200,
-        description: 'Pesquisa realizada com sucesso.',
-        type: KnightDto,
-        isArray: false,
-      },
-      {
-        status: 404,
-        description: 'Knight não encontrado.',
-      },
-    ],
-  })
+  @Docs(GET_KNIGHTS_BY_ID_DOC)
   @Validate(GetKnightByIdSchema, ValidationPlace.PARAMS)
-  async getKnightById(@Param('id') id: string): Promise<KnightDto> {
+  async getKnightById(@Param() { id }: { id: string }): GetKnightByIdOutput {
     const knight = await this.assertKnightExistance(id);
-
     return new KnightDto(knight);
   }
 
   @Put(':id')
-  @Docs({
-    operation: {
-      description: 'Cria um knight.',
-    },
-    responses: [
-      {
-        status: 204,
-        description: 'Nickname atualizado com sucesso.',
-        type: KnightDto,
-      },
-      {
-        status: 404,
-        description: 'Knight não encontrado.',
-      },
-    ],
-  })
+  @Docs(UPDATE_KNIGHTS_NICKNAME_DOC)
   @Validate(UpdateKnightBodySchema, ValidationPlace.BODY)
   @Validate(UpdateKnightParamsSchema, ValidationPlace.PARAMS)
   @HttpCode(204)
-  async updateKnightNickname(@Param('id') id?: string, @Body() body?: UpdateKnightInput) {
-    await this.assertKnightExistance(id);
-    await this.knightsService.updateKnightNickname(id, body.nickname);
-  }
-
-  @Put(':id')
-  @Docs({
-    operation: {
-      description: 'Cria um knight.',
-    },
-    responses: [
-      {
-        status: 204,
-        description: 'Nickname atualizado com sucesso.',
-        type: KnightDto,
-      },
-      {
-        status: 404,
-        description: 'Knight não encontrado.',
-      },
-    ],
-  })
-  @Validate(UpdateKnightBodySchema, ValidationPlace.BODY)
-  @Validate(UpdateKnightParamsSchema, ValidationPlace.PARAMS)
-  @HttpCode(204)
-  async createKnight(@Param('id') id?: string, @Body() body?: UpdateKnightInput) {
+  async updateKnightNickname(
+    @Param() { id }: { id: string },
+    @Body() body?: UpdateKnightInput,
+  ): UpdateKnightOutput {
     await this.assertKnightExistance(id);
     await this.knightsService.updateKnightNickname(id, body.nickname);
   }
 
   @Delete(':id')
-  @Docs({
-    operation: {
-      description: 'Deleta um Knight e o envia para o Hall of Heroes.',
-      parameters: [{ name: 'id', in: 'path' }],
-    },
-    responses: [
-      {
-        status: 204,
-        description: 'Knight deletado com sucesso.',
-      },
-      {
-        status: 404,
-        description: 'Knight não encontrado.',
-      },
-    ],
-  })
+  @Docs(DELETE_KNIGHTS_DOC)
   @HttpCode(204)
   @Validate(DeleteKnightSchema, ValidationPlace.PARAMS)
-  async deleteKnight(@Param('id') id: string): Promise<void> {
+  async deleteKnight(@Param() { id }: { id: string }): DeleteKnightOutput {
     await this.assertKnightExistance(id);
     await this.knightsService.deleteKnight(id);
   }
+
+  @Post()
+  @Docs(CREATE_KNIGHTS_DOC)
+  @Validate(CreateKnightSchema, ValidationPlace.BODY)
+  private async createKnight(@Body() body: CreateKnightInput): CreateKnightOutput {}
 
   private async assertKnightExistance(id: string) {
     const doesKnightExist = await this.knightsService.getKnightById(id);

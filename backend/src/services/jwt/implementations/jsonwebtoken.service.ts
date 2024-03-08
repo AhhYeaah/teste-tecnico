@@ -1,14 +1,5 @@
-import {
-  Injectable,
-  OnModuleInit,
-  UnauthorizedException,
-} from '@nestjs/common';
-import {
-  JWTService,
-  Payload,
-  TokenType,
-  TokenTypeIdentifier,
-} from '../jwt.service';
+import { Injectable, OnModuleInit, UnauthorizedException } from '@nestjs/common';
+import { JWTService, Payload, TokenType, TokenTypeIdentifier } from '../jwt.service';
 import * as jwt from 'jsonwebtoken';
 import { v4 as uuid } from 'uuid';
 
@@ -43,19 +34,14 @@ export class JsonWebTokenService implements JWTService, OnModuleInit {
     });
   }
 
-  verify<Type extends TokenType>(
-    token: string,
-    tokenType: TokenType,
-  ): Payload[Type] {
+  verify<Type extends TokenType>(token: string, tokenType: TokenType): Payload[Type] {
     try {
       const result = jwt.verify(token, this.secret, {
         audience: this.options.audience,
         issuer: this.options.issuer,
       });
 
-      const tokenHeader = JSON.parse(
-        Buffer.from(token.split('.')[0], 'base64').toString(),
-      );
+      const tokenHeader = JSON.parse(Buffer.from(token.split('.')[0], 'base64').toString());
 
       if (tokenHeader.typ !== TokenTypeIdentifier[tokenType]) {
         throw new Error();

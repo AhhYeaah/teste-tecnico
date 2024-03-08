@@ -8,7 +8,7 @@ export class FilterFactory {
     [FilterTypes.ALL]: new AllFilter(),
   };
 
-  static getFilter(filterType: FilterTypes): Filter {
+  static getFilter(filterType: FilterTypes = FilterTypes.ALL): Filter {
     return this.enumToFilter[filterType];
   }
 }

@@ -16,8 +16,5 @@ export type Payload = {
 
 export abstract class JWTService {
   abstract sign<type extends TokenType>(payload, tokenType: type): string;
-  abstract verify<type extends TokenType>(
-    token,
-    tokenType: type,
-  ): Payload[type];
+  abstract verify<type extends TokenType>(token, tokenType: type): Payload[type];
 }

@@ -1,7 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
-import { AttributeType, Attributes } from './Attributes';
-import { differenceInYears } from 'date-fns';
+import { HydratedDocument } from 'mongoose';
+import { AttributeType } from './Attributes';
 
 export type WeaponDocument = HydratedDocument<Weapon>;
 
