@@ -1,4 +1,3 @@
-import { KnightSchema } from 'src/database/Knight';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { WeaponsService } from './weapons.service';
