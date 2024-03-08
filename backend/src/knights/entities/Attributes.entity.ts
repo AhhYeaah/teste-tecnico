@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class AttributesDto {
+export class AttributesEntity {
   @ApiProperty({
     type: Number,
     description: 'The strength of the knight',

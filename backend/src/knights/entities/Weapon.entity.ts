@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { AttributeType } from 'src/database/Attributes';
 
-export class WeaponDto {
+export class WeaponEntity {
   @ApiProperty({
     type: String,
     description: 'The name of the weapon',
