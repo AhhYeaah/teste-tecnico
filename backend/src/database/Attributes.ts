@@ -16,22 +16,22 @@ export enum AttributeType {
   _id: false,
 })
 export class Attributes {
-  @Prop({default: 0})
+  @Prop({ default: 8 })
   strength: number;
 
-  @Prop({default: 0})
+  @Prop({ default: 8 })
   dexterity: number;
 
-  @Prop({default: 0})
+  @Prop({ default: 8 })
   constitution: number;
 
-  @Prop({default: 0})
+  @Prop({ default: 8 })
   intelligence: number;
 
-  @Prop({default: 0})
+  @Prop({ default: 8 })
   wisdom: number;
 
-  @Prop({default: 0})
+  @Prop({ default: 8 })
   charisma: number;
 }
 
