@@ -1,5 +1,5 @@
 import { Model } from 'mongoose';
-import { Knight, KnightDocument } from 'src/database/Knight';
+import { KnightDocument } from 'src/database/Knight';
 
 export enum FilterTypes {
   HEROES = 'heroes',
@@ -8,5 +8,5 @@ export enum FilterTypes {
 }
 
 export interface Filter {
-  find: (dbInstance: Model<KnightDocument>, args?: unknown) => Promise<Knight[]>;
+  find: (dbInstance: Model<KnightDocument>, args?: unknown) => Promise<KnightDocument[]>;
 }
