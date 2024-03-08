@@ -1,5 +1,5 @@
 import { DocOptions } from 'src/decorators/docs.decorator';
-import { KnightDto } from '../dto/types/knight.dto';
+import { KnightEntity } from '../entities/Knight.entity';
 
 export const GET_KNIGHTS_BY_ID_DOC: DocOptions = {
   operation: {
@@ -17,7 +17,7 @@ export const GET_KNIGHTS_BY_ID_DOC: DocOptions = {
     {
       status: 200,
       description: 'Pesquisa realizada com sucesso.',
-      type: KnightDto,
+      type: KnightEntity,
       isArray: false,
     },
     {
