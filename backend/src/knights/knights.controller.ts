@@ -1,5 +1,16 @@
 import { KnightsService } from './knights.service';
-import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Query } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Docs } from 'src/decorators/docs.decorator';
 import { Validate, ValidationPlace } from 'src/pipes/Validation/validation.pipe';
@@ -83,8 +94,12 @@ export class KnightsController {
   async createKnight(
     @Body() { attributes, weapons, ...knight }: CreateKnightInput,
   ): CreateKnightOutput {
+    const onlyOneWeaponIsEquipped = weapons.filter((weapon) => weapon.equipped).length === 1;
+    if (!onlyOneWeaponIsEquipped) {
+      throw new BadRequestException('Only one weapon can be equipped');
+    }
+
     const createdKnight = await this.knightsService.createKnight(knight, weapons, attributes);
-    console.log(createdKnight);
     return new KnightDto(createdKnight);
   }
 
