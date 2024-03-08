@@ -1,7 +1,7 @@
 import { Experience } from './../utils/Experience';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
-import { Attributes } from './Attributes';
+import { HydratedDocument } from 'mongoose';
+import { AttributeType, Attributes } from './Attributes';
 import { differenceInYears } from 'date-fns';
 import { Weapon } from './Weapon';
 import { Mod } from 'src/utils/Mod';
@@ -11,9 +11,6 @@ export type KnightDocument = HydratedDocument<Knight>;
 @Schema()
 export class Knight {
   @Prop()
-  _id: mongoose.Types.ObjectId;
-
-  @Prop()
   name: string;
 
   @Prop()
@@ -22,14 +19,17 @@ export class Knight {
   @Prop()
   birthday: Date;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Attributes' })
+  @Prop({ type: Attributes })
   attributes: Attributes;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Weapon' })
+  @Prop({ type: [Weapon] })
   weapons: Weapon[];
 
+  @Prop({ type: String, enum: AttributeType })
+  keyAttribute: AttributeType;
+
   @Prop()
-  deletedAt: Date;
+  deletedAt?: Date;
 
   age: number;
   equippedWeapon: Weapon;
