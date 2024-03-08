@@ -1,55 +1,10 @@
-import { ApiProperty } from '@nestjs/swagger';
-
+import { KnightDto } from './types/knight.dto';
 import { AttributeType } from 'src/database/Attributes';
 import Validator from 'src/pipes/Validation/Validator';
-import { WeaponDto } from './types/weapon.dto';
-import { AttributesDto } from './types/attributes.dto';
+import { KnightEntity } from '../entities/Knight.entity';
 
-export class CreateKnightInput {
-  @ApiProperty({
-    type: String,
-    description: 'The name of the knight',
-    example: 'Sir Lancelot',
-  })
-  name: string;
-
-  @ApiProperty({
-    type: String,
-    description: 'The nickname of the knight',
-    example: 'Lance',
-  })
-  nickname: string;
-
-  @ApiProperty({
-    type: String,
-    description: 'A ISODate string representing the birthday of the knight',
-    example: '1996-12-17T03:24:00',
-  })
-  birthday: string;
-
-  @ApiProperty({
-    type: [WeaponDto],
-    description: 'The weapons the knight has, at least one weapon is required',
-    minItems: 1,
-  })
-  weapons: WeaponDto[];
-
-  @ApiProperty({
-    type: AttributesDto,
-    description: 'The attributes of the knight, unset attributes will be set to 8 by default',
-  })
-  attributes: AttributesDto;
-
-  @ApiProperty({
-    type: String,
-    description: 'The main attribute of the knight',
-    example: AttributeType.STRENGTH,
-    enum: AttributeType,
-  })
-  keyAttribute: AttributeType;
-}
-
-export type CreateKnightOutput = Promise<void>;
+export type CreateKnightInput = KnightEntity;
+export type CreateKnightOutput = Promise<KnightDto>;
 
 export const CreateKnightSchema = Validator.object({
   name: Validator.string(),

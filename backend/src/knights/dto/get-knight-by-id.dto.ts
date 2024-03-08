@@ -1,7 +1,10 @@
 import Validator from 'src/pipes/Validation/Validator';
-import { KnightDto } from './types/knight.dto';
+import { KnightEntity } from '../entities/Knight.entity';
 
-export type GetKnightByIdOutput = Promise<KnightDto>;
+export type GetKnightByIdInput = {
+  id: string;
+};
+export type GetKnightByIdOutput = Promise<KnightEntity>;
 
 export const GetKnightByIdSchema = Validator.object({
   id: Validator.string(),

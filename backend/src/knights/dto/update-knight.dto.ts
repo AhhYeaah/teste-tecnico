@@ -9,7 +9,6 @@ export class UpdateKnightInput {
   })
   nickname: string;
 }
-
 export type UpdateKnightOutput = Promise<void>;
 
 export const UpdateKnightBodySchema = Validator.object({

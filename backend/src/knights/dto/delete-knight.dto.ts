@@ -1,5 +1,8 @@
 import Validator from 'src/pipes/Validation/Validator';
 
+export type DeleteKnightInput = {
+  id: string;
+};
 export type DeleteKnightOutput = Promise<void>;
 
 export const DeleteKnightSchema = Validator.object({
