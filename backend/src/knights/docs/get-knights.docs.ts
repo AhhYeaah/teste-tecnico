@@ -16,7 +16,7 @@ export const GET_KNIGHTS_DOC: DocOptions = {
     {
       status: 200,
       description: 'Pesquisa realizada com sucesso.',
-      type: [KnightDto],
+      type: KnightDto,
       isArray: true,
     },
   ],
