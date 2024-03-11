@@ -7,7 +7,7 @@ export type GetKnightByIdInput = {
 export type GetKnightByIdOutput = Promise<KnightEntity>;
 
 export const GetKnightByIdSchema = Validator.object({
-  id: Validator.string(),
+  id: Validator.string().hex().length(24).optional(),
 })
   .options({ presence: 'required' })
   .required();
