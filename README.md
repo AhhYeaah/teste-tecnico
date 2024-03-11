@@ -45,10 +45,15 @@ Eu amo NestJS.
 Eu criei um script pra fazer sua vida mais facil, pode usa-lo com o comando:
 
 ```bash
+
+# Não esqueça de rodar o docker-composer, esse script vai zuar as urls se for rodado algumas vezes seguidas.
+# Você pode ver o que ele faz olhando nos arquivos de script e seguir as instruções uma a uma se estiver tendo dificuldades 😉
 ./start.sh
 ```
 
 E pronto, tudo esta rodando, para acessar o site vá até http://localhost:3000
+
+Voce pode ainda conferir a API SWAGGER completa do projeto entrando em  http://localhost:3001/api
 
 ## Quanto texto
 
