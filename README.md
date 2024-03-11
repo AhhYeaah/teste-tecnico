@@ -22,6 +22,7 @@ O frontend é a parte que eu mais sou fraco, design não é meu forte. Foi criad
 - Validação dos formulários.
 - Roteamento com vue-router
 - Tailwindcss para estilos
+- Pagina completamente responsiva
 
 # O final das costas (backend)
 
