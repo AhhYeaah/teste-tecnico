@@ -60,8 +60,11 @@ export class KnightsController {
   @Docs(GET_KNIGHTS_BY_ID_DOC)
   @Validate(GetKnightByIdSchema, ValidationPlace.PARAMS)
   async getKnightById(@Param() { id }: GetKnightByIdInput): GetKnightByIdOutput {
-    await this.assertKnightExistance(id);
     const knight = await this.knightsService.getKnightById(id);
+
+    if (!knight) {
+      throw new KnightNotFoundException();
+    }
 
     return new KnightEntity(knight);
   }
