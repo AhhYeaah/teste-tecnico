@@ -18,7 +18,7 @@ export const UpdateKnightBodySchema = Validator.object({
   .required();
 
 export const UpdateKnightParamsSchema = Validator.object({
-  id: Validator.string(),
+  id: Validator.string().hex().length(24),
 })
   .options({ presence: 'required' })
   .required();

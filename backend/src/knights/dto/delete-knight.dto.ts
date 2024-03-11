@@ -6,7 +6,7 @@ export type DeleteKnightInput = {
 export type DeleteKnightOutput = Promise<void>;
 
 export const DeleteKnightSchema = Validator.object({
-  id: Validator.string(),
+  id: Validator.string().hex().length(24),
 })
   .options({ presence: 'required' })
   .required();
