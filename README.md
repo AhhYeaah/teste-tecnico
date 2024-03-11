@@ -44,6 +44,9 @@ Eu amo NestJS.
 Eu criei um script pra fazer sua vida mais facil, pode usa-lo com o comando:
 
 ```bash
+
+# Não esqueça de rodar o docker-composer, esse script vai zuar as urls se for rodado algumas vezes seguidas.
+# Você pode ver o que ele faz olhando nos arquivos de script e seguir as instruções uma a uma se estiver tendo dificuldades 😉
 ./start.sh
 ```
 
