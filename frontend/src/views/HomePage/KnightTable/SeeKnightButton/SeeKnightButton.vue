@@ -90,5 +90,6 @@ export default {
     <FontAwesomeIcon class="cursor-pointer" :icon="faEye" @click="openSeeModal"></FontAwesomeIcon>
     <SeeKnightDialog v-if="showDialog" @confirm="openEditModal" @close="() => (showDialog = false)"
         :initial-values="data" />
-    <EditKnightDialog v-if="showEditDialog" ref="form" @submit="editKnight"></EditKnightDialog>
+    <EditKnightDialog v-if="showEditDialog" ref="form" @submit="editKnight" @close="() => (showEditDialog = false)">
+    </EditKnightDialog>
 </template>
