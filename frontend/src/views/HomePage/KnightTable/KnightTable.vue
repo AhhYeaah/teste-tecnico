@@ -9,7 +9,7 @@ import SeeKnightButton from './SeeKnightButton/SeeKnightButton.vue';
 export default {
     data() {
         return {
-            heroes: [] as GetKnightOutput,
+            knights: [] as GetKnightOutput,
             isLoading: true
         }
     },
@@ -22,7 +22,7 @@ export default {
     methods: {
         async fetchHeroes() {
             this.getKnights().then(({ data }) => {
-                this.heroes = data;
+                this.knights = data;
                 this.isLoading = false;
             });
         }
@@ -50,7 +50,7 @@ export default {
                 <AddKnightButton @reload="$emit('reload')" />
             </div>
         </div>
-        <TableComponent :ignored-keys="['_id']" :items="heroes" :isLoading="isLoading">
+        <TableComponent :ignored-keys="['_id']" :items="knights" :isLoading="isLoading">
             <template v-slot="item">
                 <DeleteKnightButton @reload="$emit('reload')" :id="item?.item?._id"></DeleteKnightButton>
                 <SeeKnightButton :id="item?.item?._id"></SeeKnightButton>
