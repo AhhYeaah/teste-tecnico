@@ -49,6 +49,12 @@ Eu criei um script pra fazer sua vida mais facil, pode usa-lo com o comando:
 
 E pronto, tudo esta rodando, para acessar o site vá até http://localhost:3000
 
+## Quanto texto
+
+Gostou de me ver escrever? Então um segredo só pra você!
+
+Coloquei algumas anotações extras em readme's dentro de cada um dos enviroments, que tal dar uma olhada?
+
 ## Considerações finais
 
 Eu queria ter tido mais tempo para demonstrar melhor tudo o que eu sei fazer. Estou apaixonado com o NestJs faz algo perto de 3 meses após descobri-lo em um video e venho fazendo todos os meus Backends com ele desde então
