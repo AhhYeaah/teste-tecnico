@@ -52,6 +52,8 @@ Eu criei um script pra fazer sua vida mais facil, pode usa-lo com o comando:
 
 E pronto, tudo esta rodando, para acessar o site vá até http://localhost:3000
 
+Voce pode ainda conferir a API SWAGGER completa do projeto entrando em  http://localhost:3001/api
+
 ## Quanto texto
 
 Gostou de me ver escrever? Então um segredo só pra você!
