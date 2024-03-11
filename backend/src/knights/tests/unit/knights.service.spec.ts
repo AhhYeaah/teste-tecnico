@@ -1,8 +1,7 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Model } from 'mongoose';
-import { Knight, KnightDocument } from 'src/database/Knight';
-import { KnightDto } from 'src/knights/dto/types/knight.dto';
+import { Knight } from 'src/database/Knight';
 import { KnightEntity } from 'src/knights/entities/Knight.entity';
 import { FilterTypes } from 'src/knights/filter/FilterTypes/filter';
 import { KnightsService } from 'src/knights/knights.service';
@@ -82,7 +81,7 @@ describe('KnightsService', () => {
 
       expect(
         await knightService.createKnight(
-          knight as KnightEntity,
+          { ...knight, birthday: result.birthday.toISOString() } as KnightEntity,
           weapons as WeaponEntity[],
           attributes,
         ),
