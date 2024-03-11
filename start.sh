@@ -1,0 +1,1 @@
+./start-frontend.sh & ./start-backend.sh
