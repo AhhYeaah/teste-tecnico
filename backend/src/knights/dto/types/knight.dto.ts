@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { AttributeType } from 'src/database/Attributes';
-import { Knight } from 'src/database/Knight';
+import { KnightDocument } from 'src/database/Knight';
 
 export class KnightDto {
   @ApiProperty({
@@ -52,7 +52,7 @@ export class KnightDto {
   })
   exp: number;
 
-  constructor(knight: Knight) {
+  constructor(knight: KnightDocument) {
     this._id = knight._id.toString();
     this.nome = knight.name;
     this.idade = knight.age;

@@ -5,8 +5,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Knight, KnightDocument } from 'src/database/Knight';
 import { CreateKnightInput } from './dto/create-knight.dto';
-import { WeaponEntity } from './entities/Weapon.entity';
-import { AttributesEntity } from './entities/Attributes.entity';
+import { WeaponEntity } from '../weapons/entities/Weapon.entity';
+import { AttributesEntity } from '../attributes/entities/Attributes.entity';
 
 @Injectable()
 export class KnightsService {

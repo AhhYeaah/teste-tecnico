@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { AttributeType } from 'src/database/Attributes';
-import { WeaponEntity } from './Weapon.entity';
-import { AttributesEntity } from './Attributes.entity';
+import { WeaponEntity } from '../../weapons/entities/Weapon.entity';
+import { AttributesEntity } from '../../attributes/entities/Attributes.entity';
 import { KnightDocument } from 'src/database/Knight';
 
 export class KnightEntity {
