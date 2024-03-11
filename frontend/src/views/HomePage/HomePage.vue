@@ -21,7 +21,7 @@ export default {
 }
 </script>
 <template>
-    <div class="max-w-screen-lg w-full flex flex-col gap-10" :key="tables">
+    <div class="max-w-screen-lg w-full flex flex-col gap-10 p-10" :key="tables">
         <KnightTable @reload="refreshTables"></KnightTable>
         <HeroTable></HeroTable>
     </div>

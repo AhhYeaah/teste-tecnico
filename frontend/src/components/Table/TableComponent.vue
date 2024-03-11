@@ -1,7 +1,7 @@
 <template>
-    <div class="border rounded-sm overflow-hidden">
+    <div class="border rounded-sm overflow-x-auto">
         <TableSkeleton v-if="isLoading" />
-        <table v-else-if="itemsWithIgnoredKeys.length > 0" class="table-auto w-full">
+        <table v-else-if="itemsWithIgnoredKeys.length > 0" class="table-auto w-full  overflow-x-auto">
             <thead>
                 <tr>
                     <th v-for="(_value, key) in itemsWithIgnoredKeys[0]" :key="key">
@@ -12,7 +12,8 @@
             </thead>
             <tbody>
                 <tr v-for="(item, index) in itemsWithIgnoredKeys" :key="index">
-                    <td v-for="(value, key) in item" :key="key">{{ value }}</td>
+                    <td class=" text-nowrap overflow-ellipsis" v-for="(value, key) in item" :key="key">{{
+            value }}</td>
                     <td v-if="hasChildren" class="flex items-center justify-evenly flex-row gap-3">
                         <slot :item="items[index]" />
                     </td>

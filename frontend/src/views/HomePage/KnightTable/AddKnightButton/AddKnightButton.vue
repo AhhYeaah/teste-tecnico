@@ -61,6 +61,8 @@ export default {
 
 <template>
     <LoadingDialog v-if="loading" />
-    <ButtonComponent @click="() => (showDialog = true)">Novo Knight</ButtonComponent>
+    <ButtonComponent class="bg-blue-500 text-white hover:bg-blue-600 w-full lg:w-auto"
+        @click="() => (showDialog = true)">Novo
+        Knight</ButtonComponent>
     <AddKnightDialog v-if="showDialog" ref="form" @submit="submitModal" @close="() => (showDialog = false)" />
 </template>

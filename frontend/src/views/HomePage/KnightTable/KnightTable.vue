@@ -41,7 +41,7 @@ export default {
 </script>
 <template>
     <section class="flex flex-col gap-5">
-        <div class="flex justify-between items-end">
+        <div class="flex flex-col md:flex-row gap-3 justify-between md:items-end">
             <div>
                 <h2 class="text-xl font-bold">Knights</h2>
                 <span class>Uma lista de todos os knights que ainda não se tornaram heróis.</span>

@@ -57,7 +57,7 @@ export default {
                     </div>
                     <ListElement :min="1" :disabled="true" :initial="1" name="weapons" add-text="+ Adicionar Arma">
                         <template #default="{ index }">
-                            <h3 class="col-span-12">{{ index + 1 }}º Arma</h3>
+                            <h3 class="text-nowrap">{{ index + 1 }}º Arma</h3>
                             <ObjectElement :name="index" class="border-b p-3 pt-0">
                                 <TextElement :disabled="true" :floating="false" name="name" label="Nome"
                                     :rules="['required']" placeholder="Túmulo do Lobo"></TextElement>

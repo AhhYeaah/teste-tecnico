@@ -36,13 +36,13 @@ export default {
 
 <template>
     <BlackOverlay>
-        <div class="flex flex-col m-10">
+        <div class="flex flex-col m-5 w-full lg:w-[500px] ">
             <div class="bg-white rounded-t-md p-3">
                 <span class="text-xl font-bold">
                     {{ title }}
                 </span>
             </div>
-            <div class="w-[500px] max-h-[600px] bg-white overflow-y-auto p-3">
+            <div class=" max-h-[600px] bg-white overflow-y-auto p-3">
                 <slot />
             </div>
             <!-- Buttons -->
